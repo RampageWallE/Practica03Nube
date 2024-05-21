@@ -1,20 +1,35 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from "@react-navigation/native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createStackNavigator } from '@react-navigation/stack';
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+import Index from './Screens/Index'
+import Detail from "./Screens/Detail";
+import Movie from "./Screens/Movie";
+
+const Tab = createBottomTabNavigator();  
+const Stack = createStackNavigator(); 
+
+function Stacks() {
+    return(
+        <Stack.Navigator>
+            <Stack.Screen name='Tabs' component={Tabs}/>
+            <Stack.Screen name='Detail' component={Detail} options={{headerShown: true}}/>
+            <Stack.Screen name='Movie' component={Movie} options={{headerShown: false}}/>
+        </Stack.Navigator>
+    )
+}   
+function Tabs(){
+    return(
+        <Tab.Navigator>
+            <Tab.Screen name='Index' component={Index} options={{headerShown: false}}/>
+        </Tab.Navigator>
+    )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default function App(){
+    return(
+        <NavigationContainer>
+            <Stacks/>        
+        </NavigationContainer>
+    )
+}
